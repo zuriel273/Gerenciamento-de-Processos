@@ -7,6 +7,8 @@
 		private $data_criacao;
 		private $requerimento;
 		private $pessoa;
+		private $documentos; // penso em uma lista de docs
+		// penso q pode ter uma lista de movimentacoes
 
 		function Processo(){
 			$this->teste();
@@ -18,6 +20,13 @@
 			$this->descricao = "teste de classe";
 			$this->data_criacao = "22-10-2014";
 		}
+
+		public function setDocumentos ($codigo) {
+	        $this->documentos = $documentos;
+	    }
+	    public function getDocumentos () {
+	         return $this->documentos;
+	    }
 
 		public function setCodigo ($codigo) {
 	        $this->codigo = $codigo;
