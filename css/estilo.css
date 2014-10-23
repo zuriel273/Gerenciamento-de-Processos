@@ -1,0 +1,196 @@
+@font-face{
+    font-family: Source Sans;
+    font-style: normal;
+    font-weight: normal;
+    src: url(fonts/SourceSansPro.woff);
+}
+
+body{
+    font-family: Source Sans !important;
+    font-size: 15pt;
+    background: url("../img/pattern2.jpg");
+    background-color: #FFF;
+    border: 0px;
+    padding: 0px;
+}
+
+input{
+    padding-left: 2px;
+}
+
+div[class^='_']{
+    float: left;
+}
+
+.ln{
+    width: 100%;
+    float: left;
+}
+
+._100{
+    width: 100%;
+}
+
+._70{
+    width: 70%;
+}
+
+._50{
+    width: 47%;
+}
+
+._30{
+    width: 30%;
+}
+
+._25{
+    width: 22%;
+}
+
+._15{
+    width: 13%;
+}
+
+.direita{
+    float: right;
+}
+
+.esquerda{
+    float: left;
+}
+
+span.requerido{
+    color: red;
+}
+
+input.botao{
+    border: 0;
+    border-radius: 20px;
+    padding: 4px 16px;
+}
+
+input.botao:hover{
+    background: rgba(0,0,0,0.5);
+    color: #FFF;
+}
+
+.padding{
+    padding: 20px 15px 15px 15px;
+}
+
+.modal_registro{
+    position: absolute;
+    top: -10px;
+    left: 60%;
+    z-index: 999;
+    width: 200px;
+}
+
+#modal{
+    min-height: 0px;
+    width: 500px;
+    border-radius: 0px 0px 20px 20px;
+    background-color: #FFF;
+    box-shadow: 4px 4px 10px rgba(0,0,0,0.3);
+    display: none;
+    float: left;
+}
+
+#cadastro{
+    border-radius: 0px 0px 20px 20px;
+    background-color: #FFF;
+    width: 200px;
+    text-align:center;
+    padding: 10px 5px 5px 5px;
+    float: left;
+    position: relative;
+    left: 76%;
+}
+
+#cadastro:hover{
+    color: #F90;
+}
+
+.form{
+    z-index: 1;
+    min-height: 325px;
+    margin: 10% auto;
+    width: 600px;
+    border-radius: 20px;
+    background-color: #FFF;
+    box-shadow: 4px 4px 10px rgba(0,0,0,0.3);
+    position: relative;
+    left: 30%;
+    float: left;
+}
+.bt{
+    margin-top: 10px;
+}
+
+.form > .conteudo{
+    min-height: 260px;
+    margin-bottom: 15px;
+}
+
+#titulo{
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+
+#msg{
+    margin-bottom:15px;
+    float: left;
+}
+
+div[id^='msg_pessoa_']{
+    color: red;
+}
+
+.footer{
+    width: 590px;
+    position: relative;
+    top: 15px;
+    left: -15px;
+    padding: 10px 20px;
+    background: rgba(0,0,0,0.3);
+    border-radius: 0px 0px 20px 20px;
+}
+
+.campos{
+    min-height: 164px;
+    margin-top: 15%;
+}
+
+.separar{
+    float: left;
+    height: 2px;
+    border-top: 1px solid #CCC;
+    width: 100%;
+    margin: 5px 0;
+}
+
+#menu a{
+    text-decoration: none;
+    color: #000;
+}
+
+#menu a:visited{
+    color: #000;
+}
+
+#menu a:hover{
+    font-weight: bold;
+    color: #ff9900;
+}
+
+.cadastrados{
+    float: left;
+    min-height: 1000px;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 300px;
+    background: white;
+    box-shadow: 5px -5px 10px rgba(0,0,0,0.6);
+    padding: 10px;
+}
