@@ -1,25 +1,12 @@
-<?php 
-
-include_once 'model/class.base.php'; 
-import();
-
-$sessao = session_id();
-if(empty($sessao))
-    session_start();
-
-
-$conn = new Conexao(BD());
-$url = "cadastro.php";
-
-if(isset($_SESSION['logado'])){ redireciona($url); } 
-
-?>
 <!DOCTYPE html>
 <html>
 <head>
-    <?php getJs(); getCss(); ?>
-    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>Pessoas :: Login</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title><?=Base::$name." :: ".Base::$page_title?></title>
+    <link rel="stylesheet" href="css/estilo.css">
+    <?php echo Base::getJs(); ?>
+    <?php echo Base::getCss(); ?>
 </head>
 <body>
     <form action="login.php" method="POST">
