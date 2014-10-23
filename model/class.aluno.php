@@ -1,13 +1,20 @@
 <?php 
-	require_once 'pessoa.php';
-
+	
 	class Aluno extends Pessoa{
 		private $matricula;
 		private $colegiado;
 
-		function Aluno(){
+		function __construct($matricula = "", $colegiado = ""){
+			
 			parent::Pessoa;
+
+			$this->matricula = $matricula;
+			$this->colegiado = $colegiado;
 		}
+
+		public function nomeTabela(){
+        	return "aluno";
+    	}
 
 		public function setMatricula($matricula){
 	    	$this->matricula = $matricula;
@@ -23,14 +30,6 @@
 	    	return $this->colegiado;
 	    }	    
 
-	    public function salvar(){
-	   		// salvar
-		}
-		public function excluir(){
-		  // excluir
-		}	 
-		public function selecionar(){
-		  // selecionar
-		}
+	    
 	}
 ?>

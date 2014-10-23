@@ -4,9 +4,16 @@
 		private $codigo_processo;
 		private $doc;
 
-		function Documento(){
+		function __construct($codigo = "", $codigo_processo = "", $doc = ""){
+			$this->codigo = $codigo;
+			$this->codigo_processo = $codigo_processo;
+			$this->doc = $doc;
 
 		}
+
+		public function nomeTabela(){
+        	return "documento";
+    	}
 
 		public function setDoc($doc){
 			$this->doc = $doc;

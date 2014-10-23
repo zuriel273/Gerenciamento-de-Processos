@@ -10,8 +10,16 @@
 		private $documentos; // penso em uma lista de docs
 		// penso q pode ter uma lista de movimentacoes
 
-		function Processo(){
-			$this->teste();
+		function __construct($codigo = "", $situacao = "", $descricao = "",$data_criacao = "", $requerimento = "", $pessoa = "", $documentos = ""){
+			  
+			$this->codigo = $codigo;
+			$this->documentos = $documentos;
+			$this->situacao = $situacao;
+			$this->descricao = $descricao;
+			$this->data_criacao = $data_criacao;
+			$this->requerimento = $requerimento;
+			$this->pessoa = $pessoa;
+
 		}
 
 		function teste(){
@@ -20,6 +28,10 @@
 			$this->descricao = "teste de classe";
 			$this->data_criacao = "22-10-2014";
 		}
+
+		public function nomeTabela(){
+        	return "processo";
+    	}
 
 		public function setDocumentos ($codigo) {
 	        $this->documentos = $documentos;
@@ -70,16 +82,6 @@
 	    	return $this->pessoa;
 	    }
 
-	    public function salvar(){
-	   		// salvar
-		}
-		public function excluir(){
-		  // excluir
-		}
-	 
-		public function selecionar(){
-		  // selecionar
-		}
 	}
 
 ?>

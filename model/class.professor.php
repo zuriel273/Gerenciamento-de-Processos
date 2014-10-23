@@ -5,9 +5,14 @@
 
 		private $siad;
 
-		function Professor(){
+		function __construct($siad = ""){
 			parent::Pessoa;
+			$this->siad = $siad;
 		}
+
+		public function nomeTabela(){
+        	return "professor";
+    	}
 
 		public function setSiad($siad){
 			$this->siad = $siad;

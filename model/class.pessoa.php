@@ -1,60 +1,39 @@
 <?php
+	class Pessoa{
+		private $nome;
+		private $cpf;
+		private $orgao;
 
-class Pessoa{
-    
-    private $id;
-    private $nome;
-    private $data_nascimento;
-    private $cpf;
-    
-    function __construct($nome = "", $data_nascimento="", $cpf=""){
-        $this->nome = $nome;
-        $this->data_nascimento = $data_nascimento;
-        $this->cpf = $cpf;
-    }
+		function __construct($nome = "", $cpf = "", $orgao = ""){
+			$this->nome = $nome;
+			$this->cpf = $cpf;
+			$this->orgao = $orgao;
+		}
 
-    public function nomeTabela(){
-        return "pessoa";
-    }
-    
-    public function getId(){
-        return $this->id;
-    }
+		public function nomeTabela(){
+        	return "pessoa";
+    	}
 
-    public function setId($id) {
-        $this->id = $id;
-    }
+		public function setNome($nome){
+	    	$this->nome = $nome;
+	    }
+	    public function getNome(){
+	    	return $this->nome;
+	    } 
 
-    public function getNome() {
-        return $this->nome;
-    }
+	    public function setCpf($cpf){
+	    	$this->nome = $cpf;
+	    }
+	    public function getCpf(){
+	    	return $this->cpf;
+	    } 
 
-    public function setNome($nome) {
-        $this->nome = $nome;
-    }
+	    public function setOrgao($orgao){
+	    	$this->orgao = $orgao;
+	    }
+	    public function getOrgao(){
+	    	return $this->orgao;
+	    } 
 
-    public function getData_nascimento() {
-        return $this->data_nascimento;
-    }
-
-    public function setData_nascimento($data_nascimento) {
-        $this->data_nascimento = $data_nascimento;
-    }
-
-    public function getCpf() {
-        return $this->cpf;
-    }
-
-    public function setCpf($cpf) {
-        $this->cpf = $cpf;
-    }
-
-    public function getEmail() {
-        return $this->email;
-    }
-
-    public function setEmail($email) {
-        $this->email = $email;
-    }
- 
-}
+	}
+?>

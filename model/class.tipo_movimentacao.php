@@ -3,9 +3,14 @@
 		private $codigo;
 		private $descricao;
 
-		function Tipo(){
-
+		function __construct($codigo = "", $descricao = ""){
+			$this->codigo = $codigo;
+			$this->descricao = $descricao;
 		}
+
+		public function nomeTabela(){
+        	return "tipo_movimentacao";
+    	}
 
 		public function setCodigo ($codigo) {
 	        $this->codigo = $codigo;
@@ -21,17 +26,7 @@
 	    	return $this->descricao;
 	    }
 
-	    public function salvar(){
-	   		// salvar
-		}
-		public function excluir(){
-		  // excluir
-		}
-	 
-		public function selecionar(){
-		  // selecionar
-		}
-	}
+	
 		
 	}
 ?>

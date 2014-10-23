@@ -6,9 +6,17 @@
 		private $tipo;
 		private $data;
 
-		function Movimentacao(){
-
+		function __construct($codigo = "", $processo = "", $descricao = "", $tipo = "", $data = ""){
+			$this->codigo = $codigo;
+			$this->processo = $processo;
+			$this->descricao = $descricao;
+			$this->tipo = $tipo;
+			$this->data = $data;
 		}
+
+		public function nomeTabela(){
+        	return "movimentacao";
+    	}
 
 		public function setCodigo ($codigo) {
 	        $this->codigo = $codigo;

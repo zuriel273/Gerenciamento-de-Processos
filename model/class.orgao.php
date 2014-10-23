@@ -3,9 +3,16 @@
 		private $codigo;
 		private $nome;
 
-		function Orgao(){
+		function __construct($codigo = "", $nome = ""){
 			//$this->teste();
+			$this->codigo = $codigo;
+			$this->nome = $nome;
+			
 		}
+
+		public function nomeTabela(){
+        	return "orgao";
+    	}
 
 		public function setCodigo ($codigo) {
 	        $this->codigo = $codigo;
@@ -19,18 +26,7 @@
 	    }
 	    public function getNome(){
 	    	return $this->nome;
-	    } 
-
-	    public function salvar(){
-	   		// salvar
-		}
-		public function excluir(){
-		  // excluir
-		}
-	 
-		public function selecionar(){
-		  // selecionar
-		}
+	    }     
 
 	}
 ?>

@@ -3,9 +3,14 @@
 
 		private $codigo;
 
-		function Tecnico(){
+		function __construct($codigo = ""){
 			parent::Pessoa;
+			$this->codigo = $codigo;
 		}
+
+		public function nomeTabela(){
+        	return "tec_administrativo";
+    	}
 
 		public function setCodigo($codigo){
 			this->codigo = $codigo;
