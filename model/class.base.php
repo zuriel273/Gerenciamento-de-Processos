@@ -3,9 +3,9 @@
 function BD(){ 
     return array(
         "host"=> "localhost",
-        "dbname"=>"SGP",
+        "dbname"=>"mydb",
         "user"=>"root",
-        "password"=>"123",
+        "password"=>"",
     );
 }
 
