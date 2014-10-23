@@ -10,6 +10,10 @@ Criação de um sistema que visa auxiliar os servidores da UFBA em sua atividade
 
 Utilização do modelo MVC - Model, View and Controller (Modelo, Visualização e Controle), com o auxilio de uma camada de acesso ao banco de dado, utilizada para manipulação dos dados entre a aplicação e o banco de dados (DAO, Data Access Object).
 
+A figura 1 mostra a representação da estrutura do sistema.
+
+![estrutura](img/estrutura.png "Figura 1 - Representação da estrutura do sistema.")
+
 Os imports globais estão localizados na classe Base.
 
 ***2 - Model***
