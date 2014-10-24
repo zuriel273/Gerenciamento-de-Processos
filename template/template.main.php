@@ -43,9 +43,7 @@
       </div>
     </div>
     <div class="container">
-      <div class="col-sm-9 col-md-9 sidebar">
         <?=Base::$conteudo?>
-      </div>
     </div>
     <div class="footer">
       <div class="container">
