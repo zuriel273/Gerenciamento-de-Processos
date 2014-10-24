@@ -75,7 +75,7 @@ input.botao:hover{
 }
 
 .padding{
-    padding: 20px 15px 15px 15px;
+    padding: 0px 0px 0px 0px;
 }
 
 .modal_registro{
@@ -135,6 +135,7 @@ input.botao:hover{
 #titulo{
     border-bottom: 1px solid #ccc;
     margin-bottom: 10px;
+    padding: 10px;
 }
 
 #msg{
@@ -147,10 +148,9 @@ div[id^='msg_pessoa_']{
 }
 
 .footer{
-    width: 590px;
     position: relative;
-    top: 15px;
-    left: -15px;
+    top: 0px;
+    left: -0px;
     padding: 10px 20px;
     background: rgba(0,0,0,0.3);
     border-radius: 0px 0px 20px 20px;

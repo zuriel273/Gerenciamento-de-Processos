@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title><?=Base::$name." :: ".Base::$page_title?></title>
-    <link rel="stylesheet" href="css/estilo.css">
+    <title><?=Base::$system_name." :: ".Base::$page_title?></title>
+    <link rel="stylesheet" href="<?=Base::baseURL()?>css/estilo.css">
     <?php echo Base::getJs(); ?>
     <?php echo Base::getCss(); ?>
 </head>
@@ -12,7 +12,10 @@
     <form action="login.php" method="POST">
         <div class="form padding">
             <div class="conteudo_login">
-                <header id="titulo"><span class="icon-user" style="margin-right: 10px;"></span>Login</header>
+                <header id="titulo">
+                     <span class="glyphicon glyphicon-home" style="margin-right: 10px;"></span>
+                     <a href="<?=Base::baseURL();?>">Página Inicial</a>
+                </header>
                 <div class="campos">
                     <div class="ln">
                         <div class="_30">

@@ -2,12 +2,13 @@
 
 Class Base{
 
-    public static $name       = "Sistema de Gerenciamento de Processos - UFBA";
-    public static $page_title = "Página Inicial";
-    public static $site_url   = "http://localhost//Gerenciamento-de-Processo";
-    public static $pasta      = "view/";
-    public static $layout     = "main";
-    public static $page       = "index";
+    public static $short_empresa_nome = "UFBA";
+    public static $full_empresa_nome  = "Universidade Federal da Bahia";
+    public static $system_name        = "Sistema de Gerenciamento de Processos";
+    public static $page_title         = "Página Inicial";
+    public static $pasta              = "view/";
+    public static $layout             = "main";
+    public static $page               = "index";
 
     public static function BD(){ 
         return array(
@@ -16,6 +17,16 @@ Class Base{
             "user"=>"root",
             "password"=>"123",
         );
+    }
+
+    public static function baseURL(){
+      $uri = explode('/',$_SERVER['REQUEST_URI']);
+      return sprintf(
+        "%s://%s%s",
+        isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https' : 'http',
+        $_SERVER['SERVER_NAME']."/",
+        $uri[1]."/"
+      );
     }
 
     public static function render(){
@@ -33,31 +44,59 @@ Class Base{
         '<!DOCTYPE html>
         <html>
         <head>
+            <link rel="stylesheet" href="'.Base::baseURL().'css/sticky-footer-navbar.css">
             <meta charset="utf-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
-            <title>'.Base::$name.' :: '.Base::$page_title.'</title>'.
+            <title>'.Base::$system_name.' - '.Base::$short_empresa_nome.' :: '.Base::$page_title.'</title>'.
             Base::getCss().
             Base::getJs().
         '</head>
-        <body>';
-        include_once $filename;
-        echo '</body>
-              </html>';
+        <body id="'.Base::$layout.'_1">'
+        .'<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+              <div class="container">
+                <div class="navbar-header">
+                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </button>
+                  <a class="navbar-brand" href="#">'.Base::$system_name.'</a>
+                </div>
+                <div class="collapse navbar-collapse">
+                  <ul class="nav navbar-nav">
+                    <li><a href="'.Base::baseURL().'index.php">Home</a></li>
+                    <li><a href="'.Base::baseURL().'login.php">Login</a></li>
+                    <li><a href="#contact">Contate-nos</a></li>
+                  </ul>
+                </div><!--/.nav-collapse -->
+              </div>
+            </div>'
+            .'<div class="container">';
+            include_once $filename;
+        echo '</div>'.
+                '<div class="footer">
+                  <div class="container">
+                    <p class="text-muted">&copy '.Base::$full_empresa_nome.'</p>
+                  </div>
+                </div>'
+            .'</body>
+          </html>';
     }
 
     public static function getJs(){
         return
-        '<script type="text/javascript" src="js/jQuery/jquery-1.7.2.min.js"></script>
-        <script type="text/javascript" src="js/MaskedInput/jquery.maskedinput-1.3.js"/></script>    
-        <script type="text/javascript" src="js/init.js"></script>';
+        '<script type="text/javascript" src="'.Base::baseURL().'js/jQuery/jquery-1.7.2.min.js"></script>
+        <script type="text/javascript" src="'.Base::baseURL().'js/MaskedInput/jquery.maskedinput-1.3.js"/></script>    
+        <script type="text/javascript" src="'.Base::baseURL().'js/init.js"></script>';
     }
 
     public static function getCss(){
-        return 
-        '<link rel="stylesheet" href="css/bootstrap.css">
-        <link href="css/bootstrap.min.css">
-        <link href="css/bootstrap-responsive.css">
-        <link href="css/bootstrap-responsive.min.css">';
+        return '
+        <link rel="stylesheet" href="'.Base::baseURL().'css/bootstrap.css">
+        <link href="'.Base::baseURL().'css/bootstrap.min.css">
+        <link href="'.Base::baseURL().'css/bootstrap-responsive.css">
+        <link href="'.Base::baseURL().'css/bootstrap-responsive.min.css">';
     }
 
     public static function logout(){
@@ -82,9 +121,8 @@ Class Base{
     }
 
     public static function redireciona($url){
-        var_dump($_SERVER["URI"]);
         echo "<script>
-                    window.location = 'http://localhost/Gerenciamento-de-Processo/".$url."';
+                    window.location = '".Base::baseURL().$url."';
               </script>";
     }
 
@@ -112,7 +150,9 @@ Class Base{
     }
 
     public static function dd($mixed = ""){
+        echo "<pre>";
         var_dump($mixed);
+        echo "</pre>";
         die();
     }
 
