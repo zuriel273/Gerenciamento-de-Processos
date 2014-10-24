@@ -1,8 +1,9 @@
 <?php
-class LoginController{
-	public static function render(){
-		Base::$page_title = "Login";
-		Base::render();
+class LoginController extends ActionController{
+	public function render(){
+		parent.$page_title = "Login";
+		parent.$page = "login";
+		parent::render();
 	}
 }
 ?>

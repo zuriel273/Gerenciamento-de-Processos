@@ -9,6 +9,7 @@ Class Base{
     public static $pasta              = "view/";
     public static $layout             = "main";
     public static $page               = "index";
+    public static $conteudo           = "Bem Vindo";
 
     public static function BD(){ 
         return array(
@@ -28,6 +29,13 @@ Class Base{
         $uri[1]."/"
       );
     }
+    
+    public static function renderizar(){
+        if(Base::$layout == "main")
+            Base::renderPartial();
+        else
+            Base::render();
+    }
 
     public static function render(){
         $filename = Base::$page;
@@ -40,48 +48,8 @@ Class Base{
 
     public static function renderPartial(){
         $filename = Base::$pasta.Base::$page.".php";
-        echo 
-        '<!DOCTYPE html>
-        <html>
-        <head>
-            <link rel="stylesheet" href="'.Base::baseURL().'css/sticky-footer-navbar.css">
-            <meta charset="utf-8">
-            <meta http-equiv="X-UA-Compatible" content="IE=edge">
-            <title>'.Base::$system_name.' - '.Base::$short_empresa_nome.' :: '.Base::$page_title.'</title>'.
-            Base::getCss().
-            Base::getJs().
-        '</head>
-        <body id="'.Base::$layout.'_1">'
-        .'<div class="navbar navbar-default navbar-fixed-top" role="navigation">
-              <div class="container">
-                <div class="navbar-header">
-                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                  </button>
-                  <a class="navbar-brand" href="#">'.Base::$system_name.'</a>
-                </div>
-                <div class="collapse navbar-collapse">
-                  <ul class="nav navbar-nav">
-                    <li><a href="'.Base::baseURL().'index.php">Home</a></li>
-                    <li><a href="'.Base::baseURL().'login.php">Login</a></li>
-                    <li><a href="#contact">Contate-nos</a></li>
-                  </ul>
-                </div><!--/.nav-collapse -->
-              </div>
-            </div>'
-            .'<div class="container">';
-            include_once $filename;
-        echo '</div>'.
-                '<div class="footer">
-                  <div class="container">
-                    <p class="text-muted">&copy '.Base::$full_empresa_nome.'</p>
-                  </div>
-                </div>'
-            .'</body>
-          </html>';
+        Base::$conteudo = file_get_contents($filename);
+        include_once "template/template.".Base::$layout.".php";
     }
 
     public static function getJs(){
@@ -107,6 +75,7 @@ Class Base{
 
     public static function import($array = "*"){
         if($array == "*"){
+            require_once 'controller/actionController.php';
             require_once 'model/class.conexao.php';  
             require_once 'model/class.pessoa.php';
             require_once 'model/class.usuario.php';
