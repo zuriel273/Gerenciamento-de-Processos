@@ -18,7 +18,10 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="<?=Base::baseURL()?>index.php"><?=Base::$system_name?></a>
+          <div id="logo">
+            <img src="<?=Base::baseURL()?>/img/martelo.jpg" width="40"/>
+            <a class="navbar-brand" href="<?=Base::baseURL()?>index.php"><?=Base::$system_name?></a>
+          </div>
         </div>
         <div class="collapse navbar-collapse">
           <ul id="main_menu" class="nav navbar-nav">

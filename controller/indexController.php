@@ -1,8 +1,8 @@
 <?php
-class IndexController{
-	public static function render(){
+class IndexController extends ActionController{
+	public function render(){
 		Base::$page_title 	= "Página Inicial";
-		Base::renderPartial();
+		parent::render();
 	}
 }
 ?>

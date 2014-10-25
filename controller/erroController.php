@@ -1,9 +1,9 @@
 <?php
-class ErroController{
-	public static function render(){
-		Base::$page_title 	= "";
-		Base::$page 		= "erro";
-		Base::renderPartial();
+class ErroController extends ActionController{
+	public function render(){
+		Base::$page_title = "Página não encontrada.";
+		Base::$page 	  = "erro";
+		parent::render();
 	}
 }
 ?>

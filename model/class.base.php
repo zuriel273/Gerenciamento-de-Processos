@@ -46,9 +46,25 @@ Class Base{
         }
     }
 
+    private function preprocessar($conteudo){
+        $pos = strpos($conteudo, "{{");
+        while($pos){
+            $sub_conteudo = substr($conteudo,$pos + 2);
+            $pos_f = strpos($sub_conteudo, "}}");
+            if($pos_f){
+                $comando = substr($sub_conteudo,0,$pos_f);
+                eval("\$comando = ".$comando.";");
+                $conteudo = substr_replace($conteudo, $comando, $pos, $pos_f + 4);
+            }
+            $pos = strpos($conteudo, "{{");
+        }
+        return $conteudo;
+    }
+
     public static function renderPartial(){
         $filename = Base::$pasta.Base::$page.".php";
-        Base::$conteudo = file_get_contents($filename);
+        $conteudo = Base::preprocessar(file_get_contents($filename));
+        Base::$conteudo = $conteudo;
         include_once "template/template.".Base::$layout.".php";
     }
 
@@ -119,9 +135,9 @@ Class Base{
     }
 
     public static function dd($mixed = ""){
-        echo "<pre>";
+        echo "<pre><code>";
         var_dump($mixed);
-        echo "</pre>";
+        echo "</code></pre>";
         die();
     }
 
