@@ -24,6 +24,16 @@ O modelo são as classes. Adicionadas no repositório model com o modelo de nome
 
 Página que serão visualizadas pelo usuário.
 
+***3.1 - Criação uma View***
+
+Para criar uma view e poder acessá-la pela página é necessário criar o arquivo dentro da pasta *view/*, exemplo *nome_arquivo.php*, e então criar dentro da pasta *controller/* o arquivo *nome_arquivoController.php* com a classe *Nome_arquivoController* herdando de ActionController, a classe ficaria assim: 
+*class Nome_arquivoController extends ActionController{
+    public function render(){
+        Base::$page_title   = "nome_arquivo";
+        parent::render();
+    }
+}*
+
 ***4 - Controller***
 
 Arquivos que farão a análise dos dados oriundos das View's, onde será feita as validações dos campos e regras de negócios, antes de passar para a camada de persistencia do banco.
