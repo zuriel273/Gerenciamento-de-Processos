@@ -26,13 +26,14 @@ Página que serão visualizadas pelo usuário.
 
 ***3.1 - Criação uma View***
 
-Para criar uma view e poder acessá-la pela página é necessário criar o arquivo dentro da pasta *view/*, exemplo *nome_arquivo.php*, e então criar dentro da pasta *controller/* o arquivo *nome_arquivoController.php* com a classe *Nome_arquivoController* herdando de ActionController, a classe ficaria assim: 
-*class Nome_arquivoController extends ActionController{
+Para criar uma view e poder acessá-la pela página é necessário criar o arquivo dentro da pasta **view/**, exemplo **nome_arquivo.php**, e então criar dentro da pasta **controller/** o arquivo **nome_arquivoController.php** com a classe **Nome_arquivoController** herdando de ActionController, a classe ficaria assim: 
+
+<pre><code>class Nome_arquivoController extends ActionController{
     public function render(){
         Base::$page_title   = "nome_arquivo";
         parent::render();
     }
-}*
+}</code></pre>
 
 ***4 - Controller***
 
