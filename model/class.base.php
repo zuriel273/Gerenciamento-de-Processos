@@ -16,7 +16,7 @@ Class Base{
             "host"=> "localhost",
             "dbname"=>"SGP",
             "user"=>"root",
-            "password"=>"123",
+            "password"=>"",
         );
     }
 
@@ -93,11 +93,11 @@ Class Base{
         if($array == "*"){
             require_once 'controller/actionController.php';
             require_once 'model/class.conexao.php';  
-            require_once 'model/class.pessoa.php';
-            require_once 'model/class.usuario.php';
+            //require_once 'model/class.pessoa.php';
+            //require_once 'model/class.usuario.php';
 
-            require_once 'dao/UsuarioDAO.php';
-            require_once 'dao/PessoaDAO.php';
+            //require_once 'dao/UsuarioDAO.php';
+            //require_once 'dao/PessoaDAO.php';
         }else{
             foreach ($array as $file){
                 require_once($file);
