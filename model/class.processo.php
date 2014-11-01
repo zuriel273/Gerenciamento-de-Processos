@@ -33,7 +33,7 @@
         	return "processo";
     	}
 
-		public function setDocumentos ($codigo) {
+		public function setDocumentos ($documentos) {
 	        $this->documentos = $documentos;
 	    }
 	    public function getDocumentos () {
