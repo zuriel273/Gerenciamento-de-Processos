@@ -1,5 +1,5 @@
 <?php
-class ProcessoDAO{
+class DocumentoDAO{
 
     private $conn;
 
@@ -10,25 +10,22 @@ class ProcessoDAO{
 
     /**
      * 
-     * @param Processo $processo
+     * @param Documento $documento
      * 
      */
 
-    public function insert(Processo $processo){
+    public function insert(Documento $documento){
         $this->conn->beginTransaction();
 
         try {
             $stmt = $this->conn->prepare(
-                'INSERT INTO '.Processo::nomeTabela().'(`codigo`, `situacao`, `descricao`, `data_criacao`, `codigo_requerimento`, `pessoa_cpf`) VALUES (:codigo,:situacao,:descricao,:data_criacao,:codigo_requerimento,:pessoa_cpf)'
+                'INSERT INTO '.Documento::nomeTabela().'(`numero_documento`, `codigo_processo`, `conteudo_documento`) VALUES (:numero,:processo,:conteudo)'
             );
             
-            $stmt->bindValue(':codigo', $processo->getCodigo(),PDO::PARAM_STR);
-            $stmt->bindValue(':data_criacao', converterData($processo->getDataCriacao(),'pt_br'),PDO::PARAM_STR);
-            $stmt->bindValue(':situacao', $processo->getSituacao(),PDO::PARAM_STR);
-            $stmt->bindValue(':descricao', $processo->getDescricao(),PDO::PARAM_STR);
-            $stmt->bindValue(':codigo_requerimento', $processo->getRequerimento(),PDO::PARAM_STR);
-            $stmt->bindValue(':pessoa_cpf', $processo->getPessoa(),PDO::PARAM_STR);            
-            $stmt->execute();
+            $stmt->bindValue(':numero', $documento->getCodigo(),PDO::PARAM_STR);
+            $stmt->bindValue(':processo', $documento->getCodigoProcesso(),PDO::PARAM_STR);
+            $stmt->bindValue(':conteudo', $documento->getDoc(),PDO::PARAM_STR);
+            $$stmt->execute();
             
             $this->conn->commit();
             return true;
@@ -40,12 +37,12 @@ class ProcessoDAO{
 
      /**
      * 
-     * @return array de objetos @Processo
+     * @return array de objetos @Documento
      * 
      */
     public function getAll(){
         $statement = $this->conn->query(
-            'SELECT * FROM '.Processo::nomeTabela()
+            'SELECT * FROM '.Documento::nomeTabela()
         );
 
         return $this->processResults($statement);
@@ -54,7 +51,7 @@ class ProcessoDAO{
     /**
      * 
      * @param type $statement => query do banco de dados
-     * @return array da classe Processo
+     * @return array da classe Documento
      * 
      */
     private function processResults($statement) {
@@ -62,14 +59,11 @@ class ProcessoDAO{
 
         if($statement) {
             while($row = $statement->fetch(PDO::FETCH_OBJ)) {
-                $processo = new Processo();
-                $processo->setCodigo($row->codigo);
-                $processo->setSituacao($row->situacao);
-                $processo->setDescricao($row->descricao);
-                $processo->setRequerimento($row->codigo_requerimento);
-                $processo->setDataCriacao($row->data_criacao);
-                $processo->setPessoa($row->pessoa_cpf);
-                $results[] = $processo;
+                $Documento = new Documento();
+                $Documento->setDoc($row->conteudo_documento);
+                $Documento->setCodigoProcesso($row->codigo_processo);
+                $Documento->setCodigo($row->numero_documento);
+                $results[] = $Documento;
             }
         }
 
@@ -93,7 +87,7 @@ class ProcessoDAO{
                 foreach ($consulta as $cmd => $valor){
                     $string .= $cmd." ".$valor;
                 }
-                $query = 'SELECT * FROM '.Processo::nomeTabela().' WHERE '.$where.' '.$string;
+                $query = 'SELECT * FROM '.Documento::nomeTabela().' WHERE '.$where.' '.$string;
                 $stmt = $this->conn->query(
                         $query
                 );
