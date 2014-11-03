@@ -46,7 +46,7 @@
       </div>
     </div>
     <div class="container">
-        <?php print(Base::$conteudo); ?>
+        <?php include_once Base::$conteudo; ?>
     </div>
     <div class="footer">
       <div class="container">

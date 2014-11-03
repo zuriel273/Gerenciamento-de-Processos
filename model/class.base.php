@@ -48,8 +48,8 @@ Class Base{
 
     public static function renderPartial(){
         $filename = Base::$pasta.Base::$page.".php";
-        $conteudo = Base::preprocessar(file_get_contents($filename));
-        Base::$conteudo = $conteudo;
+        // $conteudo = Base::preprocessar(file_get_contents($filename));
+        Base::$conteudo = $filename;
         include_once "template/template.".Base::$layout.".php";
     }
 
@@ -87,7 +87,8 @@ Class Base{
             $pos_f = strpos($sub_conteudo, "?>");
             if($pos_f){
                 $comando = substr($sub_conteudo,0,$pos_f);
-                eval("\$comando = ".$comando);
+                Base::dd($comando);
+                eval($comando);
                 $conteudo = substr_replace($conteudo," ", $pos, $pos_f + 7);
             }
             $pos = strpos($conteudo, "<?php");
