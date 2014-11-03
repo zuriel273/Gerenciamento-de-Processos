@@ -5,6 +5,10 @@ class processoController extends ActionController{
         Base::$page_title   = "Processo";
         parent::render();
     }
+
+    public function indexAction(){
+    	return "YES";
+    }
 }
 
 ?>

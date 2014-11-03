@@ -22,13 +22,6 @@
 
 		}
 
-		function teste(){
-			$this->codigo = 192;
-			$this->situacao = "teste";
-			$this->descricao = "teste de classe";
-			$this->data_criacao = "22-10-2014";
-		}
-
 		public function nomeTabela(){
         	return "processo";
     	}

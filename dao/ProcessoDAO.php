@@ -9,8 +9,8 @@ class ProcessoDAO{
 
     public function __construct() {
         //AQUI SERÁ CRIADA A CONEXAO COM O BD
-        $conn = new Conexao(Base::BD());
-        
+        $conexao = new Conexao();
+        $this->conn = $conexao->Connecta(Base::BD());
     }
 
     /**
@@ -49,10 +49,7 @@ class ProcessoDAO{
      * 
      */
     public function getAll(){
-        $statement = $this->conn->query(
-            'SELECT * FROM '.Processo::nomeTabela()
-        );
-
+        $statement = $this->conn->query("SELECT * FROM ".Processo::nomeTabela());
         return $this->processResults($statement);
     }
 
@@ -64,8 +61,7 @@ class ProcessoDAO{
      */
     private function processResults($statement) {
         $results = array();
-
-        if($statement) {
+        if($statement){
             while($row = $statement->fetch(PDO::FETCH_OBJ)) {
                 $processo = new Processo();
                 $processo->setCodigo($row->codigo);
@@ -107,7 +103,5 @@ class ProcessoDAO{
         }
     }
     
-}
-
 }
 ?>

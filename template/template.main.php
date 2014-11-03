@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="<?=Base::baseURL()?>css/sticky-footer-navbar.css">
+    <link rel="stylesheet" href="<?=Base::baseURL()?>public/css/sticky-footer-navbar.css">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title><?=Base::$system_name.' - '.Base::$short_empresa_nome.' :: '.Base::$page_title?></title>
@@ -19,7 +19,7 @@
             <span class="icon-bar"></span>
           </button>
           <div id="logo">
-            <img src="<?=Base::baseURL()?>/img/martelo.jpg" width="40"/>
+            <img src="<?=Base::baseURL()?>/public/img/martelo.jpg" width="40"/>
             <a class="navbar-brand" href="<?=Base::baseURL()?>index.php"><?=Base::$system_name?></a>
           </div>
         </div>
@@ -46,7 +46,7 @@
       </div>
     </div>
     <div class="container">
-        <?=Base::$conteudo?>
+        <?php print(Base::$conteudo); ?>
     </div>
     <div class="footer">
       <div class="container">

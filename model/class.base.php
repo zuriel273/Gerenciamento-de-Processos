@@ -16,7 +16,7 @@ Class Base{
             "host"=> "localhost",
             "dbname"=>"SGP",
             "user"=>"root",
-            "password"=>"",
+            "password"=>"123",
         );
     }
 
@@ -46,9 +46,31 @@ Class Base{
         }
     }
 
+    public static function renderPartial(){
+        $filename = Base::$pasta.Base::$page.".php";
+        $conteudo = Base::preprocessar(file_get_contents($filename));
+        Base::$conteudo = $conteudo;
+        include_once "template/template.".Base::$layout.".php";
+    }
+
+    private function preprocessarComandos($conteudo){
+        $pos = strpos($conteudo, "{");
+        while($pos){
+            $sub_conteudo = substr($conteudo,$pos + 2);
+            $pos_f = strpos($sub_conteudo, "}");
+            if($pos_f){
+                $comando = substr($sub_conteudo,0,$pos_f);
+                eval("\$comando = ".$comando.";");
+                $conteudo = substr_replace($conteudo, $comando, $pos, $pos_f + 4);
+            }
+            $pos = strpos($conteudo, "{");
+        }
+        return $conteudo;
+    }
+
     private function preprocessar($conteudo){
         $pos = strpos($conteudo, "{{");
-        while($pos){
+        while(gettype($pos) === "integer"){
             $sub_conteudo = substr($conteudo,$pos + 2);
             $pos_f = strpos($sub_conteudo, "}}");
             if($pos_f){
@@ -58,29 +80,46 @@ Class Base{
             }
             $pos = strpos($conteudo, "{{");
         }
-        return $conteudo;
-    }
 
-    public static function renderPartial(){
-        $filename = Base::$pasta.Base::$page.".php";
-        $conteudo = Base::preprocessar(file_get_contents($filename));
-        Base::$conteudo = $conteudo;
-        include_once "template/template.".Base::$layout.".php";
+        $pos = strpos($conteudo, "<?php");
+        while(gettype($pos) === "integer"){
+            $sub_conteudo = substr($conteudo,$pos + 5);
+            $pos_f = strpos($sub_conteudo, "?>");
+            if($pos_f){
+                $comando = substr($sub_conteudo,0,$pos_f);
+                eval("\$comando = ".$comando);
+                $conteudo = substr_replace($conteudo," ", $pos, $pos_f + 7);
+            }
+            $pos = strpos($conteudo, "<?php");
+        }
+
+        $pos = strpos($conteudo, "<?=");
+        while(gettype($pos) === "integer"){
+            $sub_conteudo = substr($conteudo,$pos + 3);
+            $pos_f = strpos($sub_conteudo, "?>");
+            if($pos_f){
+                $comando = substr($sub_conteudo,0,$pos_f);
+                eval("\$comando = ".$comando."");
+                $conteudo = substr_replace($conteudo, $comando, $pos, $pos_f + 5);
+            }
+            $pos = strpos($conteudo, "<?=");
+        }
+        return $conteudo;
     }
 
     public static function getJs(){
         return
-        '<script type="text/javascript" src="'.Base::baseURL().'js/jQuery/jquery-1.7.2.min.js"></script>
-        <script type="text/javascript" src="'.Base::baseURL().'js/MaskedInput/jquery.maskedinput-1.3.js"/></script>    
-        <script type="text/javascript" src="'.Base::baseURL().'js/init.js"></script>';
+        '<script type="text/javascript" src="'.Base::baseURL().'public/js/jQuery/jquery-1.7.2.min.js"></script>
+        <script type="text/javascript" src="'.Base::baseURL().'public/js/MaskedInput/jquery.maskedinput-1.3.js"/></script>    
+        <script type="text/javascript" src="'.Base::baseURL().'public/js/init.js"></script>';
     }
 
     public static function getCss(){
         return '
-        <link rel="stylesheet" href="'.Base::baseURL().'css/bootstrap.css">
-        <link href="'.Base::baseURL().'css/bootstrap.min.css">
-        <link href="'.Base::baseURL().'css/bootstrap-responsive.css">
-        <link href="'.Base::baseURL().'css/bootstrap-responsive.min.css">';
+        <link rel="stylesheet" href="'.Base::baseURL().'public/css/bootstrap.css">
+        <link href="'.Base::baseURL().'public/css/bootstrap.min.css">
+        <link href="'.Base::baseURL().'public/css/bootstrap-responsive.css">
+        <link href="'.Base::baseURL().'public/css/bootstrap-responsive.min.css">';
     }
 
     public static function logout(){
@@ -90,14 +129,15 @@ Class Base{
     }
 
     public static function import($array = "*"){
+        require_once 'controller/actionController.php';
+        require_once 'model/class.conexao.php';  
+        require_once 'model/class.pessoa.php';  
         if($array == "*"){
-            require_once 'controller/actionController.php';
-            require_once 'model/class.conexao.php';  
-            //require_once 'model/class.pessoa.php';
-            //require_once 'model/class.usuario.php';
-
-            //require_once 'dao/UsuarioDAO.php';
-            //require_once 'dao/PessoaDAO.php';
+            foreach (scandir("model/") as $value) {
+                if($value == "." || $value == "..")
+                    continue;
+                require_once "model/$value";
+            }
         }else{
             foreach ($array as $file){
                 require_once($file);

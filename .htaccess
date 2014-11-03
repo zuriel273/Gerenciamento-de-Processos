@@ -1,5 +1,6 @@
 RewriteEngine on
-RewriteCond %{SCRIPT_FILENAME} !-f
-RewriteCond %{SCRIPT_FILENAME} !-d
-RewriteRule ^([^/]*)$ index.php?page=$1
-RewriteRule ^([^/]*\/)$ index.php?page=$1
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([a-z]+)\/([a-z]+)\/([0-9]+) index.php?cmd=$0&&page=$1&&action=$2&&id=$3 [NC,L]
+RewriteRule ^([a-z]+)\/([a-z]+) index.php?cmd=$0&&page=$1&&action=$2 [NC,L]
+RewriteRule ^([a-z]+)\/ index.php?cmd=$0&&page=$1&&action=index [NC,L]

@@ -1,10 +1,4 @@
-<?php 
-
-include "model/class.conexao.php";
-include "model/class.processo.php";
-include "dao/ProcessoDAO.php";
-?>
-
+{{ Base::import(array('dao/ProcessoDAO.php')) }}
 
 <h1>LISTA DE PROCESSOS</h1>
 <hr/>
@@ -22,23 +16,18 @@ include "dao/ProcessoDAO.php";
 		
 		// Instâncio a classe ProcessoDAO
 		$PrDAO = new ProcessoDAO();
-		
-		
+
 		$query = $PrDAO->getAll();
-		
+
 		// Faço um loop, utilizando o método fetch_array() que estará exibindo os registros.
-		while($reg = $query->fetch_array())
-		{
-	?>
-	<tr>
-		<td class="ms-classic3-left" style="width: 209px"><?=$reg["codigo"];?></td>
-		<td class="ms-classic3-even" style="width: 165px"><?=$reg["data_criacao"];?></td>
-		<td class="ms-classic3-even" style="width: 160px"><?=$reg["descricao"];?></td>
-		<td class="ms-classic3-even" style="width: 66px">
-		<center><a href="atualizar.php?ID=<?=$reg["codigo"];?>">
-		
-	</tr>
-	<?php 
+		foreach ($query as $reg) {
+			echo '<tr>
+					<td class="ms-classic3-left" style="width: 209px">
+						<center><a href="atualizar.php?ID='.$reg->getCodigo().'">'.$reg->getCodigo().'</a></center>
+					</td>
+					<td class="ms-classic3-even" style="width: 165px">'.$reg->getDataCriacao().'</td>
+					<td class="ms-classic3-even" style="width: 160px">'.$reg->getDescricao().'</td>
+				</tr>';
 		}
 	?>
 </table>

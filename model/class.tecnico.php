@@ -13,11 +13,11 @@
     	}
 
 		public function setCodigo($codigo){
-			this->codigo = $codigo;
+			$this->codigo = $codigo;
 		}
 
 		public function getCodigo(){
-			return this->codigo;
+			return $this->codigo;
 		}
 
 		public function salvar(){

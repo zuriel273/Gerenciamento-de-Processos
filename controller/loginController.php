@@ -1,6 +1,6 @@
 <?php
 class LoginController extends ActionController{
-	public function render(){
+	public function indexAction(){
 		Base::$page_title = "Login";
 		parent::render();
 	}
