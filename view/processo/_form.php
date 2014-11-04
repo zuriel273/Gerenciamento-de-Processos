@@ -6,6 +6,12 @@
 		</div>
 	</div>
 	<div class="form-group">
+		<label class="col-md-4 control-label" for="textinput">Descrição</label>  
+		<div class="col-md-4">
+		<textarea disabled="disabled"  name="descricao" placeholder="placeholder" rows="5" cols="50"><?=$model_processo->getDescricao()?></textarea>
+		</div>
+	</div>
+	<div class="form-group">
 		<label class="col-md-4 control-label" for="singlebutton"></label>
 		<div class="col-md-4">
 			<button id="singlebutton" name="singlebutton" class="btn btn-primary">Salvar</button>

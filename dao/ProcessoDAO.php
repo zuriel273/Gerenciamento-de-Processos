@@ -84,6 +84,7 @@ class ProcessoDAO{
                 $processo->setRequerimento(new Requerimento($row->codigo_requerimento));
                 $processo->setDataCriacao($row->data_criacao);
                 $processo->setPessoa($pDAO->getPessoaByCpf($row->pessoa_cpf));
+                
                 $results[] = $processo;
             }
         }
