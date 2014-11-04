@@ -7,6 +7,7 @@
 		<tr>
 			<th>Código</th>
 			<th>Descrição</th>
+			<th>Parecer</th>
 			<th>Data de Criação</th>
 			<th>Requerimento</th>
 			<th>Autor</th>
@@ -20,6 +21,7 @@
 					echo '<tr>
 							<td><a href="'.Base::baseUrl().'processo/atualizar/'.$reg->getCodigo().'">'.$reg->getCodigo().'</a></td>
 							<td>'.$reg->getDescricao().'</td>
+							<td><a href="'.Base::baseUrl().'parecerProf/index/'.$reg->getCodigo().'">'."PARECER".'</td>
 							<td>'.$reg->getDataCriacao().'</td>
 							<td><a href="'.Base::baseUrl().'requerimento/view/'.$reg->getRequerimento()->getCodigo().'">'.$reg->getRequerimento()->getCodigo().'</td>
 							<td><a href="'.Base::baseUrl().'pessoa/view/'.preg_replace("/[^0-9]/","",$reg->getPessoa()->getCpf()).'">'.$reg->getPessoa()->getCpf().'</td>

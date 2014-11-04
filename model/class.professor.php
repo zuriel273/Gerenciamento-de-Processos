@@ -4,9 +4,9 @@
 
 		private $siad;
 
-		function __construct($siad = ""){
-			parent::Pessoa;
+		function __construct($siad = "" ,$nome = "", $cpf = "", $orgao = ""){
 			$this->siad = $siad;
+			return new Pessoa($nome = "", $cpf = "", $orgao = "");
 		}
 
 		public function nomeTabela(){
@@ -20,15 +20,6 @@
 		public function getSiad(){
 			return $this->siad;
 		}
-
-		public function salvar(){
-	   		// salvar
-		}
-		public function excluir(){
-		  // excluir
-		}	 
-		public function selecionar(){
-		  // selecionar
-		}
+		
 	}
 ?>

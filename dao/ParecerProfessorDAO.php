@@ -47,8 +47,21 @@ class ParecerProfessorDAO{
         $statement = $this->conn->query(
             'SELECT * FROM '.ParecerProf::nomeTabela()
         );
-
         return $this->processResults($statement);
+    }
+
+    public function getParecerProfByCodigoParecer($codigo){
+        $stmt = $this->conn->prepare("SELECT * FROM ".ParecerProf::nomeTabela().' WHERE codigo_processo = :codigo');
+        $stmt->bindValue(':codigo', $codigo,PDO::PARAM_INT);
+        $stmt->execute();
+        return $this->processResults($stmt);
+    }
+
+    public function getParecerProfById($id){
+        $stmt = $this->conn->prepare("SELECT * FROM ".ParecerProf::nomeTabela().' WHERE id = :id');
+        $stmt->bindValue(':id', $id,PDO::PARAM_INT);
+        $stmt->execute();
+        return $this->processResults($stmt);
     }
 
     /**
@@ -59,15 +72,17 @@ class ParecerProfessorDAO{
      */
     private function processResults($statement) {
         $results = array();
-
+        require_once("ProfessorDAO.php");
         if($statement) {
+            $prof = new ProfessorDAO();
             while($row = $statement->fetch(PDO::FETCH_OBJ)) {
                 $parecer = new ParecerProf();
+                $parecer->setId($row->id);
                 $parecer->setProcesso($row->codigo_processo);
                 $parecer->setDescricao($row->descricao);
                 $parecer->setParecer($row->parecer);
                 $parecer->setData($row->dataParecer);
-                $parecer->setProfessor($row->num_siad_professor);
+                $parecer->setProfessor($prof->getProfessorBySiad($row->num_siad_professor));
                 $results[] = $parecer;
             }
         }
