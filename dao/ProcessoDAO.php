@@ -55,6 +55,18 @@ class ProcessoDAO{
 
     /**
      * 
+     * @param  int $codigo 
+     * @return Processo retorna o processo buscado pelo codigo ou NULL caso não tenha na base
+     */
+    public function getProcessoByCodigo($codigo){
+        $stmt = $this->conn->prepare("SELECT * FROM ".Processo::nomeTabela().' WHERE codigo = :codigo');
+        $stmt->bindValue(':codigo', $codigo,PDO::PARAM_INT);
+        $stmt->execute();
+        return $this->processResults($stmt);
+    }
+
+    /**
+     * 
      * @param type $statement => query do banco de dados
      * @return array da classe Processo
      * 
@@ -75,7 +87,6 @@ class ProcessoDAO{
                 $results[] = $processo;
             }
         }
-
         return $results;
     }
 

@@ -5,7 +5,8 @@ class MovimentacaoDAO{
 
     public function __construct() {
         //AQUI SERÁ CRIADA A CONEXAO COM O BD
-        
+        $conexao = new Conexao();
+        $this->conn = $conexao->Connecta(Base::BD());
     }
 
     /**
@@ -96,7 +97,5 @@ class MovimentacaoDAO{
         }
     }
     
-}
-
 }
 ?>

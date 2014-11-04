@@ -31,14 +31,28 @@
                 </a>
             </li>
             <li>
-                <a href="#contact">
-                    <span class="glyphicon glyphicon-bullhorn"></span> Contate-nos
+                <a href="<?=Base::baseURL()?>processo/">
+                    <span class="glyphicon glyphicon-bullhorn"></span> Processo
                 </a>
             </li>
           </ul>
           <ul class="nav navbar-nav" style="float: right">
             <li>
-              <a href="<?=Base::baseURL()?>login.php"><span class="glyphicon glyphicon-user"></span>
+              <div id="search">
+                <form method="POST" action="<?=Base::baseUrl()?>processo/buscar/">
+                  <div class="form-group col-lg-9">
+                    <input name='Processo[num]' type="number" class="search form-control" placeholder="Num. do processo">
+                  </div>
+                  <div class="form-group col-lg-3">
+                    <button type="submit" class="btn btn-default btn-sm">
+                      <span class="glyphicon glyphicon-search"></span>
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </li>
+            <li>
+              <a href="<?=Base::baseURL()?>login/"><span class="glyphicon glyphicon-user"></span>
                Login</a>
             </li>
           </ul>

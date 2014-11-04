@@ -1,8 +1,8 @@
 <?php
 class IndexController extends ActionController{
-	public function render(){
+	public function indexAction(){
 		Base::$page_title 	= "Página Inicial";
-		parent::render();
+		parent::render("index");
 	}
 }
 ?>

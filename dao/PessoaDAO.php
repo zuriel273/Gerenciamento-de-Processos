@@ -57,7 +57,7 @@ class PessoaDAO{
         $stmt = $this->conn->prepare("SELECT * FROM ".Pessoa::nomeTabela().' WHERE cpf = :cpf');
         $stmt->bindValue(':cpf', $cpf,PDO::PARAM_STR);
         $stmt->execute();
-        return $this->processResults($stmt);
+        return $this->processResults($stmt)[0];
     }
 
     /**

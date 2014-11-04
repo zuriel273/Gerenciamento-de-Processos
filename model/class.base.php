@@ -30,15 +30,15 @@ Class Base{
       );
     }
     
-    public static function renderizar(){
+    public static function renderizar($page){
         if(Base::$layout == "main")
-            Base::renderPartial();
+            Base::renderPartial($page);
         else
-            Base::render();
+            Base::render($page);
     }
 
-    public static function render(){
-        $filename = Base::$page;
+    public static function render($page){
+        $filename = Base::$page."/".$page;
         if($filename != ""){
             if(file_exists(Base::$pasta.$filename.".php")){
                 include_once Base::$pasta.$filename.".php";
@@ -46,66 +46,13 @@ Class Base{
         }
     }
 
-    public static function renderPartial(){
-        $filename = Base::$pasta.Base::$page.".php";
-        // $conteudo = Base::preprocessar(file_get_contents($filename));
+    public static function renderPartial($action){
+        if(Base::$page == "index" || Base::$page == "erro")
+            $filename = Base::$pasta."site/".Base::$page.".php";
+        else
+            $filename = Base::$pasta.Base::$page."/".$action.".php";
         Base::$conteudo = $filename;
         include_once "template/template.".Base::$layout.".php";
-    }
-
-    private function preprocessarComandos($conteudo){
-        $pos = strpos($conteudo, "{");
-        while($pos){
-            $sub_conteudo = substr($conteudo,$pos + 2);
-            $pos_f = strpos($sub_conteudo, "}");
-            if($pos_f){
-                $comando = substr($sub_conteudo,0,$pos_f);
-                eval("\$comando = ".$comando.";");
-                $conteudo = substr_replace($conteudo, $comando, $pos, $pos_f + 4);
-            }
-            $pos = strpos($conteudo, "{");
-        }
-        return $conteudo;
-    }
-
-    private function preprocessar($conteudo){
-        $pos = strpos($conteudo, "{{");
-        while(gettype($pos) === "integer"){
-            $sub_conteudo = substr($conteudo,$pos + 2);
-            $pos_f = strpos($sub_conteudo, "}}");
-            if($pos_f){
-                $comando = substr($sub_conteudo,0,$pos_f);
-                eval("\$comando = ".$comando.";");
-                $conteudo = substr_replace($conteudo, $comando, $pos, $pos_f + 4);
-            }
-            $pos = strpos($conteudo, "{{");
-        }
-
-        $pos = strpos($conteudo, "<?php");
-        while(gettype($pos) === "integer"){
-            $sub_conteudo = substr($conteudo,$pos + 5);
-            $pos_f = strpos($sub_conteudo, "?>");
-            if($pos_f){
-                $comando = substr($sub_conteudo,0,$pos_f);
-                Base::dd($comando);
-                eval($comando);
-                $conteudo = substr_replace($conteudo," ", $pos, $pos_f + 7);
-            }
-            $pos = strpos($conteudo, "<?php");
-        }
-
-        $pos = strpos($conteudo, "<?=");
-        while(gettype($pos) === "integer"){
-            $sub_conteudo = substr($conteudo,$pos + 3);
-            $pos_f = strpos($sub_conteudo, "?>");
-            if($pos_f){
-                $comando = substr($sub_conteudo,0,$pos_f);
-                eval("\$comando = ".$comando."");
-                $conteudo = substr_replace($conteudo, $comando, $pos, $pos_f + 5);
-            }
-            $pos = strpos($conteudo, "<?=");
-        }
-        return $conteudo;
     }
 
     public static function getJs(){
@@ -138,6 +85,11 @@ Class Base{
                 if($value == "." || $value == "..")
                     continue;
                 require_once "model/$value";
+            }
+            foreach (scandir("dao/") as $value) {
+                if($value == "." || $value == "..")
+                    continue;
+                require_once "dao/$value";
             }
         }else{
             foreach ($array as $file){
