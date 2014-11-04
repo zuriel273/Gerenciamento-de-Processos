@@ -26,7 +26,7 @@
 		
 		<li class="list-group-item">
 			<label>Orgao</label>	
-			<div><?=$pessoa->getNome()[0]->getDescricao(); ?></div>
+			<div><?=$pessoa->getOrgao()[0]->getNome(); ?></div>
 		</li>
 
 		<li class="list-group-item">
