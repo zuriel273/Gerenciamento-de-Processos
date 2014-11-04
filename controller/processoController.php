@@ -1,6 +1,6 @@
 <?php
 
-class processoController extends ActionController{
+class ProcessoController extends ActionController{
     private static $dao;
 
     function __construct(){
