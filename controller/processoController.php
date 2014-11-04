@@ -7,7 +7,12 @@ class processoController extends ActionController{
     }
 
     public function indexAction(){
+    	Base::dd();
     	return "YES";
+    }
+
+    public function atualizarAction($id){
+    	Base::dd($id);
     }
 }
 

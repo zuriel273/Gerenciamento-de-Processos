@@ -11,7 +11,6 @@
 		// penso q pode ter uma lista de movimentacoes
 
 		function __construct($codigo = "", $situacao = "", $descricao = "",$data_criacao = "", $requerimento = "", $pessoa = "", $documentos = ""){
-			  
 			$this->codigo = $codigo;
 			$this->documentos = $documentos;
 			$this->situacao = $situacao;

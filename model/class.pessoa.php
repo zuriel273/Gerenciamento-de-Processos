@@ -22,7 +22,7 @@
 	    } 
 
 	    public function setCpf($cpf){
-	    	$this->nome = $cpf;
+	    	$this->cpf = $cpf;
 	    }
 	    public function getCpf(){
 	    	return $this->cpf;

@@ -62,14 +62,16 @@ class ProcessoDAO{
     private function processResults($statement) {
         $results = array();
         if($statement){
+            require_once("PessoaDAO.php");
+            $pDAO = new PessoaDAO();
             while($row = $statement->fetch(PDO::FETCH_OBJ)) {
                 $processo = new Processo();
                 $processo->setCodigo($row->codigo);
                 $processo->setSituacao($row->situacao);
                 $processo->setDescricao($row->descricao);
-                $processo->setRequerimento($row->codigo_requerimento);
+                $processo->setRequerimento(new Requerimento($row->codigo_requerimento));
                 $processo->setDataCriacao($row->data_criacao);
-                $processo->setPessoa($row->pessoa_cpf);
+                $processo->setPessoa($pDAO->getPessoaByCpf($row->pessoa_cpf));
                 $results[] = $processo;
             }
         }

@@ -5,8 +5,14 @@ class UrlController{
 	
 	function __construct(){
 		
+		$id = isset($_GET["id"]) ? $_GET["id"] : 0;
+		
 		$action = isset($_GET["action"]) ? $_GET["action"] : "index";
-		$action .= "Action()";
+		if($id)
+			$action .= "Action(".$id.")";
+		else
+			$action .= "Action()";
+
 		// Recebe a URL digitada 
 		$url_digitada = isSet($_GET["page"]) ? $_GET["page"] : "index";
 		$url_digitada = explode(".php", $url_digitada);
@@ -37,6 +43,8 @@ class UrlController{
 		}
 
 		$this->page = new $classController;
+		$this->page->$action;
+	
 	}
 
 }

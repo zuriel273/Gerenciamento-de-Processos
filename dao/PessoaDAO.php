@@ -6,6 +6,8 @@ class PessoaDAO{
 
     public function __construct() {
         //AQUI SERÁ CRIADA A CONEXAO COM O BD
+        $conexao = new Conexao();
+        $this->conn = $conexao->Connecta(Base::BD());
     }
 
     /**
@@ -51,6 +53,13 @@ class PessoaDAO{
         return $this->processResults($statement);
     }
 
+    public function getPessoaByCpf($cpf){
+        $stmt = $this->conn->prepare("SELECT * FROM ".Pessoa::nomeTabela().' WHERE cpf = :cpf');
+        $stmt->bindValue(':cpf', $cpf,PDO::PARAM_STR);
+        $stmt->execute();
+        return $this->processResults($stmt);
+    }
+
     /**
      * 
      * @param type $statement => query do banco de dados
@@ -63,11 +72,8 @@ class PessoaDAO{
         if($statement) {
             while($row = $statement->fetch(PDO::FETCH_OBJ)) {
                 $pessoa = new Pessoa();
-                $pessoa->setId($row->id);
                 $pessoa->setNome($row->nome);
-                $pessoa->setAltura($row->altura);
                 $pessoa->setCpf($row->cpf);
-                $pessoa->setData_nascimento($row->data_nascimento);
                 $results[] = $pessoa;
             }
         }

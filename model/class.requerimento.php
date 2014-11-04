@@ -9,7 +9,6 @@
 			$this->codigo = $codigo;
 			$this->descricao = $descricao;
 			$this->tipo = $tipo;
-
 		}
 
 		public function nomeTabela(){
