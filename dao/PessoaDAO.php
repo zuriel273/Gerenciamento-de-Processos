@@ -60,7 +60,26 @@ class PessoaDAO{
         return $this->processResults($stmt)[0];
     }
 
-    /**
+    public function getPessoaByCodigo($cpf){
+        $antes = substr($cpf, 0, 3);
+        $depois = substr($cpf, 3);
+        $cpf = $antes . "." . $depois;
+        $antes = substr($cpf, 0, 7);
+        $depois = substr($cpf, 7 );
+        $cpf = $antes . "." . $depois;
+        $antes = substr($cpf, 0, 11);
+        $depois = substr($cpf, 11 );
+        $cpf = $antes . "-" . $depois;
+
+        
+        $stmt = $this->conn->prepare("SELECT * FROM ".Pessoa::nomeTabela().' WHERE cpf = :cpf');
+        $stmt->bindValue(':cpf', $cpf,PDO::PARAM_STR);
+        $stmt->execute();
+        
+        return $this->processResults($stmt)[0];
+    }
+
+      /**
      * 
      * @param type $statement => query do banco de dados
      * @return array da classe Pessoa
@@ -71,6 +90,7 @@ class PessoaDAO{
 
         if($statement) {
             while($row = $statement->fetch(PDO::FETCH_OBJ)) {
+
                 $pessoa = new Pessoa();
                 $pessoa->setNome($row->nome);
                 $pessoa->setCpf($row->cpf);

@@ -22,7 +22,7 @@
 							<td>'.$reg->getDescricao().'</td>
 							<td>'.$reg->getDataCriacao().'</td>
 							<td><a href="'.Base::baseUrl().'requerimento/view/'.$reg->getRequerimento()->getCodigo().'">'.$reg->getRequerimento()->getCodigo().'</td>
-							<td><a href="'.Base::baseUrl().'usuario/view/'.$reg->getPessoa()->getCpf().'">'.$reg->getPessoa()->getCpf().'</td>
+							<td><a href="'.Base::baseUrl().'pessoa/view/'.preg_replace("/[^0-9]/","",$reg->getPessoa()->getCpf()).'">'.$reg->getPessoa()->getCpf().'</td>
 						</tr>';
 				}
 		?>
