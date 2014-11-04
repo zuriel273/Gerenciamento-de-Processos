@@ -1,7 +1,7 @@
 <?php
 
 class ActionController{
-	public function render($page){
-		Base::renderizar($page);
+	public function render($page, $vars = array()){
+		Base::renderizar($page, $vars);
 	}
 }

@@ -1,5 +1,5 @@
 <?php 
-	$query = $_POST["\$query"];
+	$query = $vars["query"];
 ?>
 <div class="row">
 	<h1>LISTA DE PROCESSOS</h1>
@@ -21,8 +21,8 @@
 							<td><a href="'.Base::baseUrl().'processo/atualizar/'.$reg->getCodigo().'">'.$reg->getCodigo().'</a></td>
 							<td>'.$reg->getDescricao().'</td>
 							<td>'.$reg->getDataCriacao().'</td>
-							<td><a href="'.Base::baseUrl().'requerimento/'.$reg->getRequerimento()->getCodigo().'">'.$reg->getRequerimento()->getCodigo().'</td>
-							<td><a href="'.Base::baseUrl().'usuario/'.$reg->getPessoa()->getCpf().'">'.$reg->getPessoa()->getCpf().'</td>
+							<td><a href="'.Base::baseUrl().'requerimento/view/'.$reg->getRequerimento()->getCodigo().'">'.$reg->getRequerimento()->getCodigo().'</td>
+							<td><a href="'.Base::baseUrl().'usuario/view/'.$reg->getPessoa()->getCpf().'">'.$reg->getPessoa()->getCpf().'</td>
 						</tr>';
 				}
 		?>

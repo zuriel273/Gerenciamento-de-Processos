@@ -31,18 +31,22 @@ class UrlController{
 		}
 
 		$classController = ucfirst($fileName);
-
 		$this->page = new $classController;
 
-		$id = isset($_GET["id"]) ? $_GET["id"] : 0;
-		
 		$action = isset($_GET["action"]) ? $_GET["action"] : "index";
-		if($id){
-			$action .= "Action(".$id.")";
+		if(in_array($action."Action",get_class_methods($this->page))){
+			$id = isset($_GET["id"]) ? $_GET["id"] : 0;
+			if($id){
+				$action .= "Action(".$id.")";
+			}else{
+				$action .= "Action()";
+			}
+			eval('$this->page->'.$action.';');
 		}else{
-			$action .= "Action()";
+			$err = new ErroController();
+			$err->indexAction();
 		}
-		eval('$this->page->'.$action.';');
+
 	}
 
 }

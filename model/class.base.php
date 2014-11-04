@@ -30,14 +30,14 @@ Class Base{
       );
     }
     
-    public static function renderizar($page){
+    public static function renderizar($page,$vars = array()){
         if(Base::$layout == "main")
-            Base::renderPartial($page);
+            Base::renderPartial($page,$vars);
         else
-            Base::render($page);
+            Base::render($page,$vars);
     }
 
-    public static function render($page){
+    public static function render($page,$vars = array()){
         $filename = Base::$page."/".$page;
         if($filename != ""){
             if(file_exists(Base::$pasta.$filename.".php")){
@@ -46,7 +46,7 @@ Class Base{
         }
     }
 
-    public static function renderPartial($action){
+    public static function renderPartial($action,$vars = array()){
         if(Base::$page == "index" || Base::$page == "erro")
             $filename = Base::$pasta."site/".Base::$page.".php";
         else

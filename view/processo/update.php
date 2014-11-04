@@ -1,4 +1,4 @@
-<?php $model_processo = $_POST["\$query"]; ?>
+<?php $model_processo = $vars["query"]; ?>
 <fieldset class="form">
 	<legend>
 		Atualizar dados do processo

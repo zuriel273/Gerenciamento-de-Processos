@@ -3,31 +3,28 @@
 class processoController extends ActionController{
     private static $dao;
 
-    public function render($action){
+    function __construct(){
+        $this->dao = new ProcessoDAO();
+    }
+
+    public function render($action, $vars = array()){
         Base::$page_title   = "Processo";
-        parent::render($action);
+        parent::render($action,$vars);
     }
 
     public function indexAction(){
-        // Instâncio a classe ProcessoDAO
-        $PrDAO = new ProcessoDAO();
-        $query = $PrDAO->getAll();
-        $_POST["\$query"] = $query;
-        $this->render("index");
+        $query = $this->dao->getAll();
+        $this->render("index",array("query" => $query));
     }
 
     public function atualizarAction($id){
-        $dao = new ProcessoDAO();
-        $processo = $dao->getProcessoByCodigo($id);
-        $_POST["\$query"] = $processo[0];
-        $this->render("update");
+        $processo = $this->dao->getProcessoByCodigo($id);
+        $this->render("update",array("query" => $processo[0]));
     }
 
     public function buscarAction(){
-        $dao = new ProcessoDAO();
-        $processo = $dao->getProcessoByCodigo($_POST["Processo"]["num"]);
-        $_POST["\$query"] = $processo;
-        $this->render("index");
+        $processo = $this->dao->getProcessoByCodigo($_POST["Processo"]["num"]);
+        $this->render("view", array("query" => $processo));
     }
 
 }
