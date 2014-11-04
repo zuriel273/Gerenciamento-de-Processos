@@ -12,7 +12,7 @@ Utilização do modelo MVC - Model, View and Controller (Modelo, Visualização 
 
 A figura 1 mostra a representação da estrutura do sistema.
 
-![estrutura](img/estrutura.png "Figura 1 - Representação da estrutura do sistema.")
+![estrutura](public/img/estrutura.png "Figura 1 - Representação da estrutura do sistema.")
 
 Os imports globais estão localizados na classe Base.
 
