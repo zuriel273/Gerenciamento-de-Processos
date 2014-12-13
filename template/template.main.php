@@ -51,10 +51,23 @@
                 </form>
               </div>
             </li>
+            <?php
+            if(isset($_SESSION["logado"])){
+            ?>
+            <li>
+              <a href="<?=Base::baseURL()?>login/desAuth"><span class="glyphicon glyphicon-user"></span>
+               Logout</a>
+            </li>            
+            <?php  
+            }else{
+            ?>
             <li>
               <a href="<?=Base::baseURL()?>login/"><span class="glyphicon glyphicon-user"></span>
                Login</a>
             </li>
+            <?php
+            }
+            ?>
           </ul>
         </div><!--/.nav-collapse -->
       </div>

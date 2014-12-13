@@ -3,11 +3,13 @@
 		private $nome;
 		private $cpf;
 		private $orgao;
+		private $senha;
 
-		function __construct($nome = "", $cpf = "", $orgao = ""){
+		function __construct($nome = "", $cpf = "", $orgao = "", $senha = ""){
 			$this->nome = $nome;
 			$this->cpf = $cpf;
 			$this->orgao = $orgao;
+			$this->senha = $senha;
 		}
 
 		public function nomeTabela(){
@@ -34,6 +36,14 @@
 	    public function getOrgao(){
 	    	return $this->orgao;
 	    } 
+
+	    public function getSenha(){
+	    	return $this->senha;
+	    }
+
+	    public function setSenha($senha){
+	    	$this->senha = $senha;
+	    }
 
 	}
 ?>

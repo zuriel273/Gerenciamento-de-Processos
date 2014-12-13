@@ -1,0 +1,50 @@
+DELIMITER $$ 
+
+Create Trigger Auditoria_AddProcesso After insert on processo  
+
+for each Row
+begin
+
+INSERT INTO `auditoria_processo`(`codigo`, `situacao`, `descricao`, `pessoa_cpf`, `codigo_requerimento`, `data`) VALUES (NEW.`codigo`,NEW.`situacao`,NEW.`descricao`,NEW.`pessoa_cpf`,NEW.`codigo_requerimento`,NOW());
+
+END $$ 
+
+DELIMITER;
+
+----------------------------------------
+
+DELIMITER $$
+
+CREATE TRIGGER Auditoria_parecerProf after insert on parecer_professor
+for each row
+begin
+	
+    declare recCod integer;
+    declare proSit varchar(50);
+    declare proDesc text;
+    declare cpfs varchar(15);
+    declare pessoa varchar(255);
+    declare reqCod integer;
+    declare requerimentos varchar(255);
+    declare prof varchar(255);
+    declare cpfp varchar(15);
+    
+    SELECT situacao FROM `processo` WHERE codigo = NEW.`codigo_processo` into proSit;
+    SELECT descricao FROM `processo` WHERE codigo = NEW.`codigo_processo` into proDesc;
+    SELECT pessoa_cpf FROM `processo` WHERE codigo = NEW.`codigo_processo` into cpfs;
+    SELECT codigo_requerimento FROM `processo` WHERE codigo = NEW.`codigo_processo` into reqCod;
+    
+    SELECT descricao FROM `requerimento` WHERE codigo = reqCod into requerimentos;
+    
+    SELECT cpf_pessoa FROM `professor` WHERE num_siad = NEW.`num_siad_professor` into cpfp;
+    
+    SELECT nome FROM `pessoa` WHERE pessoa.cpf = cpfs into pessoa;
+    SELECT nome FROM `pessoa` WHERE pessoa.cpf = cpfp into prof;
+    
+    
+    
+    INSERT INTO `auditoria_parecerProf`(`codigo_processo`, `num_siad_professor`, `descricao`, `parecer`, `processo_descricao`, `processo_situacao`, `pessoa_cpf`, `pessoa_nome`, `requerimento_codigo`, `requerimento`, `hora`,`professor`) VALUES (NEW.`codigo_processo`,NEW.`num_siad_professor`,NEW.`descricao`,NEW.`parecer`,proDesc,proSit,cpfs,pessoa,reqCod,requerimentos,NOW(),prof);
+
+end $$
+DELIMITER;
+

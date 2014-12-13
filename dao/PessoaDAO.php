@@ -98,6 +98,7 @@ class PessoaDAO{
                 $pessoa = new Pessoa();
                 $pessoa->setNome($row->nome);
                 $pessoa->setCpf($row->cpf);
+                $pessoa->setSenha($row->senha);
                 //$requerimento->setTipo($trD->getTipoRequerimentoByCodigo($row->codigo_tipo_requerimento_processo)); 
                 $pessoa->setOrgao($oD->getOrgaoByCodigo($row->orgao_codigo));
                 $results[] = $pessoa;
@@ -106,6 +107,51 @@ class PessoaDAO{
 
         return $results;
     }
+
+    public function logado($pessoa){
+        $cpf = $pessoa->getCpf();
+        $senha = $pessoa->getSenha();
+        
+        if(empty($cpf) || empty($senha))
+            return NULL;
+        
+        $pass = md5($senha);
+        $statement = $this->conn->prepare(
+
+            'SELECT * FROM '.Pessoa::nomeTabela().' WHERE cpf = :cpf AND senha = :pass'
+        );    
+
+        $statement->bindParam(':cpf', $cpf, PDO::PARAM_STR);
+        $statement->bindParam(':pass', $pass, PDO::PARAM_STR);
+        $statement->execute();
+        $resultado = $this->processResults($statement);
+        //Base::dd($resultado);
+        if(empty($resultado) || is_null($resultado))
+            return NULL;
+        
+        $result = $resultado[0]; //pessoa
+
+        //Base::dd($result);
+        return $result;
+    }
+
+    /* private function processResults($statement){
+        $results = array();
+        if($statement){
+            while($row = $statement->fetch(PDO::FETCH_OBJ)) {
+                $pessoa = new Pessoa();
+                $pessoa->setCpf($row->cpf);
+                $pessoa->setSenha($row->senha);
+                $pessoa->setNome($row->nome);
+                $pessoa->setOrgao($row->orgao_codigo);
+                $results[] = $pessoa;
+            }
+        }
+
+        return $results;
+    }*/
+    
+
     
     /**
      * 

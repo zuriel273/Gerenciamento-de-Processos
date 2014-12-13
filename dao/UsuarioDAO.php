@@ -53,17 +53,20 @@ class UsuarioDAO{
     }
     
     public function logado($user){
-        $login = $user->getLogin();
+        $cpf = $user->getCpf();
         $senha = $user->getSenha();
         
         if(empty($login) || empty($senha))
             return NULL;
         
         $pass = md5($senha);
-        $statement = $this->conn->query(
-            'SELECT * FROM '.Usuario::nomeTabela().' WHERE login = "'.$login.'" AND senha = "'.$pass.'"'
-        );
+        $statement = $this->conn->prepare(
+
+            'SELECT * FROM '.Usuario::nomeTabela().' WHERE cpf = :cpf AND senha = :pass'
+        );    
+
         
+
         $resultado = $this->processResults($statement);
         if(empty($resultado) || is_null($resultado))
             return NULL;

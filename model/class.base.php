@@ -12,11 +12,12 @@ Class Base{
     public static $conteudo           = "Bem Vindo";
 
     public static function BD(){ 
-        return array(
-            "host"=> "localhost",
-            "dbname"=>"SGP",
-            "user"=>"root",
-            "password"=>"123",
+        return array("admin" => array(
+                "host"=> "localhost",
+                "dbname"=>"sgp",
+                "user"=>"root",
+                "password"=>"",
+            )
         );
     }
 
@@ -31,6 +32,21 @@ Class Base{
     }
     
     public static function renderizar($page,$vars = array()){
+        $sessao = session_id();
+        if(empty($sessao))
+            session_start($sessao);
+        
+        if(!isset($_SESSION["msg"]))
+            $_SESSION["msg"] = "";
+
+        if(!isset($_SESSION["logado"]) || $_SESSION["page"]["package"] != "login" || ((!isset($_SESSION["logado"])) || empty($_SESSION["logado"]))){
+            Base::$page = "login";
+            $page = "index";
+            $_SESSION["page"]["path"] = Base::$page."/".$page;
+            $_SESSION["page"]["package"] = Base::$page;
+            $_SESSION["page"]["file"] = $page;
+        } 
+
         if(Base::$layout == "main")
             Base::renderPartial($page,$vars);
         else
@@ -71,9 +87,9 @@ Class Base{
     }
 
     public static function logout(){
-        session_start();
+        session_start(session_id());
         session_destroy();
-        redireciona("index.php");
+        Base::redireciona("index.php");
     }
 
     public static function import($array = "*"){

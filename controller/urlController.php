@@ -32,7 +32,6 @@ class UrlController{
 
 		$classController = ucfirst($fileName);
 		$this->page = new $classController;
-
 		$action = isset($_GET["action"]) ? $_GET["action"] : "index";
 		if(in_array($action."Action",get_class_methods($this->page))){
 			$id = isset($_GET["id"]) ? $_GET["id"] : 0;

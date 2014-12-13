@@ -7,7 +7,7 @@ class RequerimentoController extends ActionController{
         $this->dao = new RequerimentoDAO();
     }
 
-    public function render($action, $vars = array()){
+    public function render($action="", $vars = array()){
         Base::$page_title   = "Requerimento";
         parent::render($action,$vars);
     }

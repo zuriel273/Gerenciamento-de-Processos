@@ -7,7 +7,7 @@ class ProcessoController extends ActionController{
         $this->dao = new ProcessoDAO();
     }
 
-    public function render($action, $vars = array()){
+    public function render($action="", $vars = array()){
         Base::$page_title   = "Processo";
         parent::render($action,$vars);
     }

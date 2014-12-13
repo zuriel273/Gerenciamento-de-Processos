@@ -1,0 +1,4 @@
+start transaction;
+
+UPDATE `parecer_professor` SET `parecer`= 'F' WHERE id = '1'
+

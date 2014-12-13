@@ -1,0 +1,18 @@
+DELIMITER //
+
+CREATE PROCEDURE sP_validaParecerProf(pCod bigint(20), nProf bigint(20), des text, par varchar(2), dt date )
+
+BEGIN
+
+IF ( (( nProf != 0) && (nProf != '')) && (( pcod != 0) && (pcod != '')) && (par != '') && (des != '') ) THEN
+
+INSERT INTO `parecer_professor`( `codigo_processo`, `num_siad_professor`, `descricao`, `parecer`, `dataParecer`) VALUES (pCod,nProf,des,par,dt);
+
+
+ELSE
+SELECT 'Dados inconsistentes'
+AS Msg;
+END IF;
+END;
+//
+DELIMITER ;
