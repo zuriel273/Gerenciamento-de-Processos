@@ -2,7 +2,8 @@
     <form action="<?=Base::baseUrl()?>login/loginAuth/" method="POST">
         <div class="form-group">
             <label for="pessoa_login">Login</label>
-            <input type="text" class="form-control" name="Login[cpf]" id="pessoa_login" size="30" required="required" placeholder="Seu cpf. Com ponto e hífen. Ex: 000.000.000-00">
+            <input type="text" class="form-control" name="Login[cpf]" id="pessoa_login" size="30" required="required" placeholder="Seu cpf. Com ponto e hífen.">
+            <label>Ex: 000.000.000-00</label>
         </div>
         <div class="form-group">
             <label for="pessoa_senha">Senha</label>

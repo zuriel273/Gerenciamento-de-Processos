@@ -12,12 +12,18 @@ Class Base{
     public static $conteudo           = "Bem Vindo";
 
     public static function BD(){ 
-        return array("admin" => array(
-                "host"=> "localhost",
-                "dbname"=>"sgp",
-                "user"=>"root",
-                "password"=>"",
-            )
+        // return array("root" => array(
+        //         "host"=> "localhost",
+        //         "dbname"=>"sgp",
+        //         "user"=>"root",
+        //         "password"=>"123",
+        //     )
+        // );
+        return array(
+            "host"=> "localhost",
+            "dbname"=>"sgp",
+            "user"=>"root",
+            "password"=>"123",
         );
     }
 
@@ -33,9 +39,9 @@ Class Base{
     
     public static function renderizar($page,$vars = array()){
         $sessao = session_id();
-        if(empty($sessao))
+        if(empty($_SESSION))
             session_start($sessao);
-        
+
         if(!isset($_SESSION["msg"]))
             $_SESSION["msg"] = "";
 

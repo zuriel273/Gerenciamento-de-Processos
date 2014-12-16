@@ -12,8 +12,34 @@ class ProcessoController extends ActionController{
         parent::render($action,$vars);
     }
 
+    public function createAction(){
+        session_start(session_id());
+        if(isset($_POST["Processo"])){
+            $processo = new Processo();
+            $processo->setDescricao($_POST["Processo"]["descricao"]);
+            $processo->setRequerimento(new Requerimento($_POST["Processo"]["requerimento"]));
+            $pessoa = new Pessoa();
+            $pessoa->setCpf($_SESSION[logado]->getCpf());
+            $processo->setPessoa($pessoa);
+            $dao = new ProcessoDAO();
+            $dao->insert($processo);
+        }
+        $this->render("create",array());
+    }
+
     public function indexAction(){
-        $query = $this->dao->getAll();
+        session_start(session_id());
+        if(empty($_SESSION) || !isset($_SESSION["logado"]) || empty($_SESSION["logado"])){
+            $query = $this->dao->getAll();
+        }else{
+            $pessoa = $_SESSION["logado"];
+            if($pessoa->getRole() == "aluno")
+                $query = $this->dao->getProcessoByCpf($pessoa->getCpf());
+            else if($pessoa->getRole() == "docente")
+                $query = $this->dao->getTodosAberturaProcesso();
+            else
+                $query = $this->dao->getAll();
+        }
         $this->render("index",array("query" => $query));
     }
 

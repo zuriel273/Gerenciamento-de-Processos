@@ -18,23 +18,18 @@ class ProcessoDAO{
      * @param Processo $processo
      * 
      */
-
     public function insert(Processo $processo){
         $this->conn->beginTransaction();
-
         try {
             $stmt = $this->conn->prepare(
-                'INSERT INTO '.Processo::nomeTabela().'(`codigo`, `situacao`, `descricao`, `data_criacao`, `codigo_requerimento`, `pessoa_cpf`) VALUES (:codigo,:situacao,:descricao,:data_criacao,:codigo_requerimento,:pessoa_cpf)'
+                'INSERT INTO '.Processo::nomeTabela().'(`codigo`, `descricao`, `data_criacao`, `codigo_requerimento`, `pessoa_cpf`) VALUES (:codigo,:descricao,:data_criacao,:codigo_requerimento,:pessoa_cpf)'
             );
-            
-            $stmt->bindValue(':codigo', $processo->getCodigo(),PDO::PARAM_STR);
-            $stmt->bindValue(':data_criacao', converterData($processo->getDataCriacao(),'pt_br'),PDO::PARAM_STR);
-            $stmt->bindValue(':situacao', $processo->getSituacao(),PDO::PARAM_STR);
+            $stmt->bindValue(':codigo', $processo->getCodigo(),PDO::PARAM_INT);
+            $stmt->bindValue(':data_criacao', date("Y-m-d"), PDO::PARAM_STR);
             $stmt->bindValue(':descricao', $processo->getDescricao(),PDO::PARAM_STR);
-            $stmt->bindValue(':codigo_requerimento', $processo->getRequerimento(),PDO::PARAM_STR);
-            $stmt->bindValue(':pessoa_cpf', $processo->getPessoa(),PDO::PARAM_STR);            
+            $stmt->bindValue(':codigo_requerimento', $processo->getRequerimento()->getCodigo(),PDO::PARAM_STR);
+            $stmt->bindValue(':pessoa_cpf', $processo->getPessoa()->getCpf(),PDO::PARAM_STR);            
             $stmt->execute();
-            
             $this->conn->commit();
             return true;
         }
@@ -67,6 +62,28 @@ class ProcessoDAO{
 
     /**
      * 
+     * @param  sting $cpf 
+     * @return Processo retorna o processo buscado pelo codigo ou NULL caso não tenha na base
+     */
+    public function getProcessoByCpf($cpf){
+        $stmt = $this->conn->prepare("SELECT * FROM ".Processo::nomeTabela().' WHERE pessoa_cpf = :cpf');
+        $stmt->bindValue(':cpf', $cpf,PDO::PARAM_STR);
+        $stmt->execute();
+        return $this->processResults($stmt);
+    }
+
+     /**
+     * 
+     * @return array de objetos @Processo apenas os que foram abertos recentemente
+     * 
+     */
+    public function getTodosAberturaProcesso(){
+        $statement = $this->conn->query("SELECT * FROM v_processo_docente");
+        return $this->processResults($statement);
+    }
+
+    /**
+     * 
      * @param type $statement => query do banco de dados
      * @return array da classe Processo
      * 
@@ -84,7 +101,6 @@ class ProcessoDAO{
                 $processo->setRequerimento(new Requerimento($row->codigo_requerimento));
                 $processo->setDataCriacao($row->data_criacao);
                 $processo->setPessoa($pDAO->getPessoaByCpf($row->pessoa_cpf));
-                
                 $results[] = $processo;
             }
         }

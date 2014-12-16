@@ -87,24 +87,19 @@ class PessoaDAO{
      */
     private function processResults($statement) {
         $results = array();
-
         require_once("OrgaoDAO.php");
-            
         $oD = new OrgaoDAO();
-
         if($statement) {
             while($row = $statement->fetch(PDO::FETCH_OBJ)) {
-
                 $pessoa = new Pessoa();
                 $pessoa->setNome($row->nome);
                 $pessoa->setCpf($row->cpf);
                 $pessoa->setSenha($row->senha);
-                //$requerimento->setTipo($trD->getTipoRequerimentoByCodigo($row->codigo_tipo_requerimento_processo)); 
+                $pessoa->setRole($row->role);
                 $pessoa->setOrgao($oD->getOrgaoByCodigo($row->orgao_codigo));
-                $results[] = $pessoa;
+                $results[] = $pessoa; 
             }
         }
-
         return $results;
     }
 

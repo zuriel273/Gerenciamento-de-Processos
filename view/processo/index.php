@@ -10,7 +10,11 @@
 			<th>Parecer</th>
 			<th>Data de Criação</th>
 			<th>Requerimento</th>
-			<th>Autor</th>
+			<?php if($_SESSION["logado"]->getRole() != "docente"){ ?>
+				<th>Autor</th>
+			<?php }else{ ?>
+				<th>Ação</th>
+			<?php } ?>
 		</tr>
 		<?php
 			if(empty($query))
@@ -23,9 +27,13 @@
 							<td>'.$reg->getDescricao().'</td>
 							<td><a href="'.Base::baseUrl().'parecerProf/index/'.$reg->getCodigo().'">'."PARECER".'</td>
 							<td>'.$reg->getDataCriacao().'</td>
-							<td><a href="'.Base::baseUrl().'requerimento/view/'.$reg->getRequerimento()->getCodigo().'">'.$reg->getRequerimento()->getCodigo().'</td>
-							<td><a href="'.Base::baseUrl().'pessoa/view/'.preg_replace("/[^0-9]/","",$reg->getPessoa()->getCpf()).'">'.$reg->getPessoa()->getCpf().'</td>
-						</tr>';
+							<td><a href="'.Base::baseUrl().'requerimento/view/'.$reg->getRequerimento()->getCodigo().'">'.$reg->getRequerimento()->getCodigo().'</td>';
+					if($_SESSION["logado"]->getRole() != "docente"){
+						echo '<td><a href="'.Base::baseUrl().'pessoa/view/'.preg_replace("/[^0-9]/","",$reg->getPessoa()->getCpf()).'">'.$reg->getPessoa()->getCpf().'</td>';
+					}else{
+						echo '<td><a href="'.Base::baseUrl().'parecerDocente/add">Dar Parecer</td>';
+					}
+					echo '</tr>';
 				}
 		?>
 	</table>

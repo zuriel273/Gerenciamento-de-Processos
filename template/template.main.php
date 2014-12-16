@@ -53,10 +53,11 @@
             </li>
             <?php
             if(isset($_SESSION["logado"])){
+            $usuario  = $_SESSION["logado"];
             ?>
             <li>
               <a href="<?=Base::baseURL()?>login/desAuth"><span class="glyphicon glyphicon-user"></span>
-               Logout</a>
+              Logout( <?= $usuario->getRole() ?> )</a>
             </li>            
             <?php  
             }else{

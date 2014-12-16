@@ -1,14 +1,25 @@
-<form class="form-horizontal">
+<?php 
+function disabled(){
+	echo (is_null($model_processo) || empty($model_processo)) ? "" : 'disabled="disabled"';
+}
+$dao = new RequerimentoDAO();
+$requerimentos = $dao->getAll();
+?>
+<form class="form-horizontal" method="POST" action="<?=Base::baseUrl()?>processo/create">
 	<div class="form-group">
-		<label class="col-md-4 control-label" for="textinput">Código</label>  
+		<label class="col-md-4 control-label" for="textinput">Tipo Requerimento</label>  
 		<div class="col-md-4">
-			<input id="textinput" disabled="disabled" name="textinput" type="text" placeholder="placeholder" class="form-control input-md" value="<?=$model_processo->getCodigo()?>">
+			<select  class="form-control input-md" <?php disabled(); ?> name="Processo[requerimento]">
+				<?php foreach ($requerimentos as $requerimento){?>
+					<option value="<?php echo $requerimento->getCodigo() ?>"><?php echo $requerimento->getDescricao() ?></option>
+				<?php } ?>
+			</select>
 		</div>
 	</div>
 	<div class="form-group">
-		<label class="col-md-4 control-label" for="textinput">Descrição</label>  
+		<label class="col-md-4 control-label" for="motivo">Motivo</label>  
 		<div class="col-md-4">
-		<textarea disabled="disabled"  name="descricao" placeholder="placeholder" rows="5" cols="50"><?=$model_processo->getDescricao()?></textarea>
+		<textarea <?php disabled(); ?> name="Processo[descricao]" placeholder="descreva o motivo da solicitação" rows="5" cols="50"></textarea>
 		</div>
 	</div>
 	<div class="form-group">

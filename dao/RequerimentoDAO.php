@@ -45,7 +45,6 @@ class RequerimentoDAO{
         $statement = $this->conn->query(
             'SELECT * FROM '.Requerimento::nomeTabela()
         );
-
         return $this->processResults($statement);
     }
 
